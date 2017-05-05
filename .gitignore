@@ -1,6 +1,24 @@
-.vscode/
-build/
-typings/
+# OS
+# ======================
+.DS_Store
+Thumbs.db
+
+# Dependencies
+# ======================
 node_modules/
-.DS*
-._.*
+typings/
+
+# General
+# ======================
+.tmp/
+dist/
+build/
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.tmp
+*.bak
+*.swp
