@@ -6,7 +6,7 @@ import * as root from 'app-root-path';
 import * as cookieParser from 'cookie-parser';
 import * as routes from './server/routes';
 
-const app = express();
+const app = express(); 
 
 // view engine setup
 app.set('views', `${root}/server/views/`);
