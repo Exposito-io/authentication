@@ -1,10 +1,15 @@
-import * as express from 'express';
-const router = express.Router();
+import * as express from 'express'
+import * as homepage from './homepage'
+import { login } from './authentication'
+import * as googleAuth from './authentication/google'
 
-router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.render('index', {
-        title: 'Express'
-    });
-});
+const router = express.Router()
 
-export = router;
+router.get('/', homepage.controller)
+
+router.get('/login', login)
+router.get('/login/google', googleAuth.login)
+router.get('/login/google/return', googleAuth.loginReturnMiddleware, googleAuth.loginReturn)
+
+
+export = router
