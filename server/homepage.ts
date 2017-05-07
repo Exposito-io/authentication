@@ -8,4 +8,5 @@ function controller(req: express.Request, res: express.Response, next: express.N
 
 }
 
-export = { controller }
+
+export { controller }

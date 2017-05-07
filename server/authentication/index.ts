@@ -1,20 +1,24 @@
 import * as passport from 'passport'
+import * as googleAuth from './google'
 
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
-})
 
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-})
-
-export = {
-    login: function(req, res){
-      res.render('login')
-    },
-
-    initialize: function(app) {
-        app.use(passport.initialize())
-        app.use(passport.session())
-    }
+function login(req, res){
+  res.render('login')
 }
+
+function initialize(app) {
+    app.use(passport.initialize())
+    app.use(passport.session())
+
+    passport.serializeUser(function(user, cb) {
+      cb(null, user);
+    })
+
+    passport.deserializeUser(function(obj, cb) {
+      cb(null, obj);
+    })
+
+    googleAuth.initialize()
+}
+
+export { login, initialize }

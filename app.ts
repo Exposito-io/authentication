@@ -40,19 +40,6 @@ authentication.initialize(app)
 app.use('/', routes)
 
 
-/*
-app.get('/login/google',
-  passport.authenticate('google', { successRedirect: '/login/google/return',scope:
-  [ 'email', 'profile' ]
-}))
-
-app.get('/login/google/return',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    console.log('Return!')
-    res.redirect('/')
-})*/
-
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
