@@ -6,14 +6,14 @@
   "scripts": {
     "clean": "rimraf build",
     "prebuild": "npm run clean",
-    "build": "tsc",
+    "build": "./node_modules/.bin/tsc",
     "prestart": "npm run build",
     "start": "node ./build/bin/www.js",
     "predev": "npm run clean",
     "dev": "concurrently \"npm run tsc-watch\" \"npm run nodemon\"",
     "prenodemon": "wait-on ./build/bin/www.js",
     "nodemon": "nodemon --delay 1500ms --watch ./build \"./build/bin/www.js\"",
-    "tsc-watch": "tsc -w",
+    "tsc-watch": "./node_modules/.bin/tsc -w",
     "lint": "tslint -c tslint.json \"./src/**/*.ts\""
   },
   "author": "Andre Giannico <andre@andregiannico.com>",

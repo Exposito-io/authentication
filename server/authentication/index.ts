@@ -11,7 +11,7 @@ function initialize(app) {
     app.use(passport.session())
 
     passport.serializeUser(function(user, cb) {
-      cb(null, user);
+      cb(null, { userId: user._id });
     })
 
     passport.deserializeUser(function(obj, cb) {
