@@ -7,6 +7,8 @@ import * as cookieParser from 'cookie-parser'
 import * as routes from './server/routes'
 import * as authentication from './server/authentication'
 import {Strategy as GoogleStrategy} from 'passport-google-oauth2'
+import * as session from 'express-session'
+import * as connectRedis from 'connect-redis'
 
 
 
@@ -26,7 +28,21 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser())
 
 
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
+// Setup session management
+
+let RedisStore = connectRedis(session)
+
+app.use(session({
+    store: new RedisStore({ host: 'localhost', port: 6379 }),
+    secret: 'keyboard  fwaefaewf awefaewf cat',
+    resave: false,
+    saveUninitialized: false,
+    rolling: true
+}))
+
+
+
+
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.

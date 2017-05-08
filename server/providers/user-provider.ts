@@ -28,7 +28,7 @@ class UserProvider {
             .then((users) => {
                 if (users.length === 0) {
                     return this._createUserFromGoogleProfile(googleProfile)
-                    .then(() => resolve())
+                    .then(result => resolve(result.ops[0]))
                     .catch(err => reject(err));
                 }
                 else {
