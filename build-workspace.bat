@@ -1,0 +1,1 @@
+docker run -d -ti -p 3000:3000 --name exposito -v E:/tmp/test2/Exposito/authentication:/exposito node:6.10.3
