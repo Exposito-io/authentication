@@ -12,7 +12,7 @@
     "predev": "npm run clean",
     "dev": "concurrently \"npm run tsc-watch\" \"npm run nodemon\"",
     "prenodemon": "wait-on ./build/bin/www.js",
-    "nodemon": "nodemon --delay 1500ms --watch ./build \"./build/bin/www.js\"",
+    "nodemon": "nodemon --inspect --delay 1500ms --watch ./build \"./build/bin/www.js\"",
     "tsc-watch": "./node_modules/.bin/tsc -w",
     "lint": "tslint -c tslint.json \"./src/**/*.ts\""
   },

@@ -20,16 +20,18 @@ class UserProvider {
      *
      * @param info
      */
-    updateGoogleProfile(googleProfile) {
+    updateGoogleProfile(googleProfile): Promise<User> {
 
         return new Promise((resolve, reject) => {
 
             dbFactory.getConnection(config.database)
             .then(db => db.collection('users').find({ 'googleProfile.id': googleProfile.id }).limit(1).toArray())
-            .then((users) => {
+            .then((users) => { 
                 if (users.length === 0) {
                     return this._createUserFromGoogleProfile(googleProfile)
-                    .then(result => resolve(User.fromJSON(result.ops[0])))
+                    .then(result => {
+                       return resolve(User.fromJSON(result.ops[0]))
+                    })
                     .catch(err => reject(err));
                 }
                 else {
