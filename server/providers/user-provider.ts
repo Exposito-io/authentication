@@ -20,32 +20,20 @@ class UserProvider {
      *
      * @param info
      */
-    updateGoogleProfile(googleProfile): Promise<User> {
+    async updateGoogleProfile(googleProfile): Promise<User> {
 
-        return new Promise((resolve, reject) => {
+        let db = await dbFactory.getConnection(config.database)
+        let users = await db.collection('users').find({ 'googleProfile.id': googleProfile.id }).limit(1).toArray()
 
-            dbFactory.getConnection(config.database)
-            .then(db => db.collection('users').find({ 'googleProfile.id': googleProfile.id }).limit(1).toArray())
-            .then((users) => { 
-                if (users.length === 0) {
-                    return this._createUserFromGoogleProfile(googleProfile)
-                    .then(result => {
-                       return resolve(User.fromJSON(result.ops[0]))
-                    })
-                    .catch(err => reject(err));
-                }
-                else {
-                    return this._updateGoogleProfile(users[0]._id, googleProfile)
-                    .then(() => this.findById(users[0]._id))
-                    .catch(err => reject(err));
-                }
-            })
-            .catch(err => {
-                let faew = 24;
-                reject(err);
-            });
+        if (users.length === 0) {
+            let result = await this._createUserFromGoogleProfile(googleProfile)
+            return User.fromJSON(result.ops[0])
+        }
+        else {
+            await this._updateGoogleProfile(users[0]._id, googleProfile)
+            return await this.findById(users[0]._id)
+        }
 
-        });
     }
 
 
@@ -55,7 +43,7 @@ class UserProvider {
      * @param  {string|ObjectId} id User ID
      * @return {Promise}
      */
-    findById(id) {
+    findById(id: String|ObjectId) {
         return new Promise((resolve, reject) => {
             if (!(id instanceof ObjectId))
                 id = ObjectId(id);
