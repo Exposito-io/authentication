@@ -1,3 +1,5 @@
+/// <reference path="./typings/undefined.d.ts" />
+
 import * as express from 'express'
 import * as path from 'path'
 import * as logger from 'morgan'
@@ -6,9 +8,9 @@ import * as root from 'app-root-path'
 import * as cookieParser from 'cookie-parser'
 import * as routes from './server/routes'
 import * as authentication from './server/authentication'
-import {Strategy as GoogleStrategy} from 'passport-google-oauth2'
 import * as session from 'express-session'
 import * as connectRedis from 'connect-redis'
+import {Strategy as GoogleStrategy} from 'passport-google-oauth2'
 
 
 

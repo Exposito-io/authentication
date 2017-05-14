@@ -1,5 +1,6 @@
 import * as passport from 'passport'
 import * as googleAuth from './google'
+import User from '../../models/user'
 
 
 function login(req, res){
@@ -10,8 +11,8 @@ function initialize(app) {
     app.use(passport.initialize())
     app.use(passport.session())
 
-    passport.serializeUser(function(user, cb) {
-      cb(null, { userId: user._id });
+    passport.serializeUser(function(user: User, cb) {
+      cb(null, { userId: user._id, id: user._id });
     })
 
     passport.deserializeUser(function(obj, cb) {

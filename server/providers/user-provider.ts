@@ -1,4 +1,6 @@
-import { ObjectId } from 'mongodb'
+/// <reference path="../../typings/undefined.d.ts" />
+
+import { ObjectID } from 'mongodb'
 import * as config from 'config'
 import * as dbFactory from 'mongo-factory'
 import User from '../../models/user'
@@ -22,7 +24,7 @@ class UserProvider {
      */
     async updateGoogleProfile(googleProfile): Promise<User> {
 
-        let db = await dbFactory.getConnection(config.database)
+        let db = await dbFactory.getConnection(config.get('database'))
         let users = await db.collection('users').find({ 'googleProfile.id': googleProfile.id }).limit(1).toArray()
 
         if (users.length === 0) {
@@ -43,21 +45,18 @@ class UserProvider {
      * @param  {string|ObjectId} id User ID
      * @return {Promise}
      */
-    findById(id: String|ObjectId) {
-        return new Promise((resolve, reject) => {
-            if (!(id instanceof ObjectId))
-                id = ObjectId(id);
+    async findById(id: string|ObjectID) {
+        if (!(id instanceof ObjectID))
+            id = new ObjectID(id);
 
-            dbFactory.getConnection(config.database)
-            .then(db => db.collection('users').find({ _id: id }).limit(1).toArray())
-            .then(users => {
-                if (users.length === 0)
-                    throw("No user found");
-                else
-                    resolve(users[0])
-            })
-            .catch(err => reject(err));
-        });
+        let db = await dbFactory.getConnection(config.get('database'))
+        let users = await db.collection('users').find({ _id: id }).limit(1).toArray()
+
+        if (users.length === 0)
+            throw("No user found")
+        else
+            return users[0]
+
     }
 
     /**
@@ -68,7 +67,7 @@ class UserProvider {
      */
     findByOauthId(oauthId) {
         return new Promise((resolve, reject) => {
-            dbFactory.getConnection(config.database)
+            dbFactory.getConnection(config.get('database'))
             .then(db => db.collection('users').find({ 'googleProfile.id': oauthId }).limit(1).toArray())
             .then(users => {
                 if (users.length === 0)
@@ -84,18 +83,18 @@ class UserProvider {
     private _createUserFromGoogleProfile(googleProfile) {
         //googleProfile = this._extractOauthInfo(googleProfile);
 
-        return dbFactory.getConnection(config.database)
+        return dbFactory.getConnection(config.get('database'))
                .then(db => db.collection('users').insertOne({googleProfile}))
     }
 
     private _updateGoogleProfile(_id, googleProfile) {
         //googleProfile = this._extractOauthInfo(googleProfile);
 
-        return dbFactory.getConnection(config.database)
+        return dbFactory.getConnection(config.get('database'))
                .then(db => db.collection('users').updateOne({ _id }, { $set: {googleProfile} }))
     }
 
-
+    /*
     private _extractOauthInfo(oauthInfo) {
 
         let info = {
@@ -109,7 +108,7 @@ class UserProvider {
         if (oauthInfo.locale) info.locale = oauthInfo.locale;
 
         return info;
-    }
+    }*/
 }
 
 
