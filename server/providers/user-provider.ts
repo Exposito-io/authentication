@@ -1,4 +1,4 @@
-/// <reference path="../../typings/undefined.d.ts" />
+/// <reference path="../../types/undefined.d.ts" />
 
 import { ObjectID } from 'mongodb'
 import * as config from 'config'

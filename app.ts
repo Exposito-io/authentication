@@ -1,4 +1,4 @@
-/// <reference path="./typings/undefined.d.ts" />
+/// <reference path="./types/undefined.d.ts" />
 
 import * as express from 'express'
 import * as path from 'path'
