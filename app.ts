@@ -39,7 +39,12 @@ app.use(session({
     secret: 'keyboard  fwaefaewf awefaewf cat',
     resave: false,
     saveUninitialized: false,
-    rolling: true
+    rolling: true,
+    cookie: {
+        path: '/',
+        domain: '.exposito.io',
+        maxAge: 1000 * 60 * 72 // 24 hours
+    }
 }))
 
 
