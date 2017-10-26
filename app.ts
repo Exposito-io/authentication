@@ -43,7 +43,7 @@ app.use(session({
     cookie: {
         path: '/',
         domain: '.exposito.io',
-        maxAge: 1000 * 60 * 72 // 24 hours
+        maxAge: 1000 * 60 * 72 // 72 hours
     }
 }))
 
