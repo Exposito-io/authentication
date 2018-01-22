@@ -1,0 +1,10 @@
+{
+  "serverPort": 3001,
+  "database": "mongodb://localhost:27017/exposito",
+  "cacheHost": "localhost",
+  "cachePort": 6379,
+  "cacheDb": 0,
+  "googleClientWebId": "",
+  "googleClientAppId": ""
+
+}
