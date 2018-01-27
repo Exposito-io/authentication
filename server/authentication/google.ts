@@ -11,8 +11,8 @@ const userProvider = new UserProvider()
 
 function initialize(): void {
     passport.use(new GoogleStrategy({
-        clientID: '',
-        clientSecret: '',
+        clientID: config.get('googleClientWebId'),
+        clientSecret: config.get('googlePrivateKey'),
         callbackURL: `http://dev.login.exposito.io/login/google/return`
       },
       async function(accessToken, refreshToken, googleProfile, cb) {
