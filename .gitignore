@@ -3,6 +3,9 @@
 .DS_Store
 Thumbs.db
 
+config/
+!config/default.sample.json
+
 # Dependencies
 # ======================
 node_modules/
